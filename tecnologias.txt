@@ -5,4 +5,3 @@
 - Kubernetes
 - Jenkins/GitHub Actions
 - Monitoramento (Prometheus/Grafana)
-
