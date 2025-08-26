@@ -1,4 +1,4 @@
-# Nome do workflow que aparecerá no GitHub
+# O nome do workflow que aparecerá no GitHub
 name: CI - Verificacao de Qualidade
 
 # Gatilho (trigger): quando este workflow deve rodar?
