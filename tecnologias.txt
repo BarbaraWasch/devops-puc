@@ -1,6 +1,8 @@
 ﻿Ferramentas de DevOps:
+
 - Git/GitHub
 - Docker
 - Kubernetes
 - Jenkins/GitHub Actions
 - Monitoramento (Prometheus/Grafana)
+
