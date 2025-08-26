@@ -1,0 +1,22 @@
+name: CD - Simulacao de Deploy
+
+on:
+  # Este workflow só vai rodar quando houver um push na branch 'main'
+  # Geralmente, isso acontece após um merge de um Pull Request
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do Repositorio
+        uses: actions/checkout@v3
+
+      - name: Simulando o deploy para um ambiente
+        run: |
+          echo "Iniciando o deploy..."
+          echo "Conteudo a ser publicado:"
+          cat tecnologias.txt
+          echo "Deploy realizado com sucesso!"
