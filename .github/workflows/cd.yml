@@ -1,8 +1,10 @@
 name: CD - Simulacao de Deploy
 
 on:
-  # Este workflow só vai rodar quando houver um push na branch 'main'
-  # Geralmente, isso acontece após um merge de um Pull Request
+  # Roda quando um PR é aberto para a main
+  pull_request:
+    branches: [ main ]
+  # Roda também quando há um push na main (após o merge)
   push:
     branches: [ main ]
 
