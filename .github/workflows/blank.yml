@@ -1,0 +1,35 @@
+# Nome do workflow que aparecerá no GitHub
+name: CI - Verificacao de Qualidade
+
+# Gatilho (trigger): quando este workflow deve rodar?
+on:
+  # Roda em todo push para qualquer branch
+  push:
+  # Roda em toda criação de Pull Request para a branch 'main'
+  pull_request:
+    branches: [ main ]
+
+# Tarefas (jobs) que serão executadas
+jobs:
+  # Nome do nosso job de CI
+  build:
+    # Em qual tipo de máquina virtual ele deve rodar
+    runs-on: ubuntu-latest
+
+    # Passos (steps) que o job vai executar
+    steps:
+      # 1. Copia o código do seu repositório para a máquina virtual
+      - name: Checkout do Repositorio
+        uses: actions/checkout@v3
+
+      # 2. Um passo de exemplo que verifica se os arquivos existem
+      - name: Verifica a existencia dos arquivos do projeto
+        run: |
+          echo "Iniciando a verificacao de CI..."
+          ls -la # Lista todos os arquivos para visualização no log
+          if [ -f "tecnologias.txt" ]; then
+            echo "Arquivo tecnologias.txt encontrado. CI passou!"
+          else
+            echo "Arquivo tecnologias.txt nao encontrado. Falha no CI!"
+            exit 1
+          fi
