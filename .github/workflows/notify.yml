@@ -14,8 +14,7 @@ jobs:
         uses: rjstone/discord-webhook-notify@v1
         with:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-          # Colocamos o "título" como a primeira linha da descrição, usando Markdown para negrito.
-          description: |
-            **✅ Novo Deploy em Produção**
-            O código foi atualizado na branch 'main' com sucesso! Deploy iniciado.
-          color: "32768" # Cor verde em formato decimal
+          # Colocamos a descrição numa única linha, usando \n para a quebra de linha.
+          # Isto evita problemas de formatação do YAML.
+          description: "**✅ Novo Deploy em Produção**\nO código foi atualizado na branch 'main' com sucesso! Deploy iniciado."
+          color: "32768"
