@@ -1,7 +1,6 @@
 name: Notificacao de Deploy no Discord
 
 on:
-  # Gatilho: Roda sempre que houver um push na branch main
   push:
     branches:
       - main
@@ -10,11 +9,13 @@ jobs:
   notificar:
     runs-on: ubuntu-latest
     steps:
-      - name: Enviar notificacao para o Discord
-        # Mudando para uma Action mais popular e confiável
+      - name: Enviar notificação para o Discord
         uses: appleboy/discord-action@master
         with:
-          # O nome do parâmetro da URL é um pouco diferente
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
-          # O parâmetro da mensagem também muda e podemos incluir informações do commit
-          message: "✅ **Novo Deploy em Produção**\nO commit `${{ github.sha }}` foi integrado na branch `main` e o deploy foi iniciado com sucesso."
+          message: |
+            ✅ **Novo Deploy em Produção**
+            **Commit:** ${{ github.event.head_commit.message }}
+            **Autor:** ${{ github.actor }}
+            **Hash:** `${{ github.sha }}`
+            O deploy foi iniciado com sucesso na branch `main`.
