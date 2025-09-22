@@ -1,18 +1,19 @@
 # O nome do workflow que aparecerá no GitHub
-name: CI - Verificacao de Qualidade
+name: CI - Verificacao de Qualidade e Testes
 
 # Gatilho (trigger): quando este workflow deve rodar?
 on:
-  # Roda em todo push para qualquer branch
+  # Roda em todo push para a branch main
   push:
+    branches: [ main ]
   # Roda em toda criação de Pull Request para a branch 'main'
   pull_request:
     branches: [ main ]
 
 # Tarefas (jobs) que serão executadas
 jobs:
-  # Nome do nosso job de CI
-  build:
+  # Nome do nosso job de CI, agora incluindo testes
+  build-e-test:
     # Em qual tipo de máquina virtual ele deve rodar
     runs-on: ubuntu-latest
 
@@ -22,14 +23,20 @@ jobs:
       - name: Checkout do Repositorio
         uses: actions/checkout@v3
 
-      # 2. Um passo de exemplo que verifica se os arquivos existem
-      - name: Verifica a existencia dos arquivos do projeto
+      # 2. Configura o ambiente com a versão do Python que usamos
+      - name: Configurar Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      # 3. Instala as dependências do projeto (Flask e Pytest)
+      - name: Instalar Dependencias
         run: |
-          echo "Iniciando a verificacao de CI..."
-          ls -la # Lista todos os arquivos para visualização no log
-          if [ -f "tecnologias.txt" ]; then
-            echo "Arquivo tecnologias.txt encontrado. CI passou!"
-          else
-            echo "Arquivo tecnologias.txt nao encontrado. Falha no CI!"
-            exit 1
-          fi
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      # 4. Executa os testes unitários com Pytest (inclui correção de path)
+      - name: Rodar Testes Unitarios
+        run: |
+          export PYTHONPATH=.
+          pytest
