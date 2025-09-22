@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Enviar notificacao para o Discord
-        uses: rjstone/discord-webhook-notify@v1
+        # Mudando para uma Action mais popular e confiável
+        uses: appleboy/discord-action@master
         with:
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-          # Colocamos a descrição numa única linha, usando \n para a quebra de linha.
-          # Isto evita problemas de formatação do YAML.
-          description: "**✅ Novo Deploy em Produção**\nO código foi atualizado na branch 'main' com sucesso! Deploy iniciado."
-          color: "32768"
+          # O nome do parâmetro da URL é um pouco diferente
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+          # O parâmetro da mensagem também muda e podemos incluir informações do commit
+          message: "✅ **Novo Deploy em Produção**\nO commit `${{ github.sha }}` foi integrado na branch `main` e o deploy foi iniciado com sucesso."
