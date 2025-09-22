@@ -1,0 +1,19 @@
+name: Notificacao de Deploy no Discord
+
+on:
+  # Gatilho: Roda sempre que houver um push na branch main
+  push:
+    branches:
+      - main
+
+jobs:
+  notificar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enviar notificacao para o Discord
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          description: "O código foi atualizado na branch 'main' com sucesso! Deploy iniciado."
+          title: "✅ Novo Deploy em Produção"
+          color: "32768" # Cor verde em formato decimal
